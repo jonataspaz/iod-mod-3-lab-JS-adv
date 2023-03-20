@@ -2,5 +2,23 @@
   "dependencies": {
     "node-fetch": "^3.3.1",
     "type": "module"
-  }
+  },
+  "name": "iod-mod-3-lab-js-adv",
+  "version": "1.0.0",
+  "main": "js-03-advanced.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jonataspaz/iod-mod-3-lab-JS-adv.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jonataspaz/iod-mod-3-lab-JS-adv/issues"
+  },
+  "homepage": "https://github.com/jonataspaz/iod-mod-3-lab-JS-adv#readme",
+  "description": ""
 }

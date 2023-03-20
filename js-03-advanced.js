@@ -7,7 +7,7 @@ counter starts from (instead of always starting from 0)
 c) Modify makeCounter to take another argument incrementBy, which specifies how
 much each call to counter() should increase the counter value by. */
 
-/*function makeCounter(startFrom, inrementBy) {
+function makeCounter(startFrom, inrementBy) {
     let currentCount = startFrom;
 
     return function() {
@@ -24,7 +24,7 @@ counter1(); // 10
 counter2(); // 11
 counter2(); // 12
 counter2(); // 13
-counter2(); // 14 */
+counter2(); // 14
 
 /* 2 The following delayMsg function is intended to be used to delay printing a message until
 some time has passed.
@@ -38,7 +38,7 @@ b) Rewrite delayMsg as an arrow function
 c) Add a fifth test which uses a large delay time (greater than 10 seconds)
 d) Use clearTimeout to prevent the fifth test from printing at all. */
 
-/* const delayMsg = (msg) => {
+ const delayMsg = (msg) => {
   console.log(`This message will be printed after a delay: ${msg}`);
 };
 setTimeout(delayMsg, 100, "#1: Delayed by 100ms");
@@ -46,7 +46,7 @@ setTimeout(delayMsg, 20, "#2: Delayed by 20ms");
 setTimeout(delayMsg, 0, "#3: Delayed by 0ms");
 delayMsg("#4: Not delayed at all");
 const timeout10S = setTimeout(delayMsg, 10000, "#5: Delayed by 10000ms");
-clearTimeout(timeout10S); */
+clearTimeout(timeout10S);
 
 /* 3. 'Debouncing' is a concept that refers to 'putting off' the execution of multiple, fast-timed,
 similar requests until there's a brief pause, then only executing the most recent of those
@@ -62,7 +62,7 @@ length of the period of inactivity instead of hardcoding to 1000ms
 c) Extend debounce to allow the original debounced function printMe to take an argument
 msg which is included in the console.log statement. */
 
-/* function debounce(func, delay = 1000) {
+ function debounce(func, delay = 1000) {
   let timeoutId;
   return function () {
     const context = this;
@@ -83,7 +83,7 @@ printMe = debounce(printMe);
 //fire off 3 calls to printMe within 300ms - only the LAST one should print, after 1000ms of no calls
 setTimeout(() => printMe("debounced message 1"), 100);
 setTimeout(() => printMe("debounced message 2"), 200);
-setTimeout(() => printMe("debounced message 3"), 300); */
+setTimeout(() => printMe("debounced message 3"), 300);
 
 /* 4. The Fibonacci sequence of numbers is a famous pattern where the next number in the
 sequence is the sum of the previous 2.
@@ -95,7 +95,7 @@ calls to do the same thing
 c) Extend one of the above functions to accept a limit argument, which tells it how many
 numbers to print before stopping. */
 
-/* function printFibonacci() {
+function printFibonacci() {
   let n1 = 0;
   let n2 = 1;
 
@@ -136,12 +136,12 @@ function printFibonacciTimeouts(limit) {
   setTimeout(getNextFibonacci, 1000);
 }
 
-printFibonacciTimeouts(5); */
+printFibonacciTimeouts(5);
 
 /* 5. The following car object has several properties and a method which uses them to print a
 description. When calling the function normally this works as expected, but using it from
 within setTimeout fails. Why? */
-/* let car = {
+ let car = {
   make: "Porsche",
   model: "911",
   year: 1964,
@@ -150,7 +150,7 @@ within setTimeout fails. Why? */
   },
 };
 
-setTimeout(car.description.bind(car), 200); */
+setTimeout(car.description.bind(car), 200);
 /* a) Fix the setTimeout call by wrapping the call to car.description() inside a
 function
 b) Change the year for the car by creating a clone of the original and overriding it
@@ -163,7 +163,7 @@ setTimeout still uses the bound value from */
 
 /*6 Use the Function prototype to add a new delay(ms) function to all functions, which can
 be used to delay the call to that function by ms milliseconds. */
-/* function multiply(...args) {
+ function multiply(...args) {
   let multi = 1;
   for (let arg of args) multi *= arg;
 
@@ -179,7 +179,7 @@ Function.prototype.delay = function (ms) {
   };
 };
 
-multiply.delay(500)(5, 5, 10); // prints 25 after 500 milliseconds */
+multiply.delay(500)(5, 5, 10); // prints 25 after 500 milliseconds
 
 /* a) Use the example multiply function below to test it with, as above, and assume that all
 delayed functions will take two parameters
@@ -201,7 +201,7 @@ c) Create a new constructor function Student that uses call to inherit from Pers
 add an extra property cohort
 d) Add a custom toString for Student objects that formats and prints their details. Test
 with 2 students. */
-/* function Person(name, age, gender) {
+ function Person(name, age, gender) {
   this.name = name;
   this.age = age;
   this.gender = gender;
@@ -221,11 +221,11 @@ const person2 = new Person("Brown James", 23, "Female");
 const student1 = new Student("Smith", 59, "female", "2013");
 console.log("person1: " + person1.toString());
 console.log("person2: " + person2.toString());
-console.log("student1: " + student1.toString()); */
+console.log("student1: " + student1.toString());
 
 /* 8. The following DigitalClock class uses an interval to print the time every second once
 started, until stopped. */
-/* class DigitalClock {
+class DigitalClock {
   constructor(prefix) {
     this.prefix = prefix;
   }
@@ -248,6 +248,11 @@ started, until stopped. */
   start() {
     this.display();
     this.timer = setInterval(() => this.display(), 1000);
+
+    //dont forget to stop, otherwise the interval will continue forever :-))
+     setTimeout(() => {
+      this.stop();
+     }, 10000);
   }
 }
 const myClock = new DigitalClock("my clock:");
@@ -261,11 +266,18 @@ class PrecisionClock extends DigitalClock {
   start() {
     this.display();
     this.timer = setInterval(() => this.display(), this.precision);
+
+    //dont forget to stop, otherwise the interval will continue forever :-))
+    setTimeout(() => {
+      clearInterval(this.timer);
+    }, 10000);
   }
 }
 
+// Love your neat coding mate.
+
 const myPrecisionClock = new PrecisionClock("my precision clock:", 500);
-myPrecisionClock.start(); */
+myPrecisionClock.start();
 
 /* a) Create a new class PrecisionClock that inherits from DigitalClock and adds the
 parameter precision – the number of ms between 'ticks'. This precision parameter
@@ -275,7 +287,7 @@ parameter wakeupTime in the format hh:mm. When the clock reaches this time, it
 should print a 'Wake Up' message and stop ticking. This wakeupTime parameter should
 default to 07:00 if not supplied. */
 
-/* class AlarmClock extends DigitalClock {
+class AlarmClock extends DigitalClock {
   constructor(prefix, wakeupTime = "07:00") {
     super(prefix);
     this.wakeupTime = wakeupTime;
@@ -295,7 +307,7 @@ default to 07:00 if not supplied. */
 }
 
 const myAlarmClock = new AlarmClock("my alarm clock:", "18:05");
-myAlarmClock.start(); */
+myAlarmClock.start();
 
 /* 9. We can delay execution of a function using setTimeout, where we need to provide the
 callback function to be executed after the delay.
@@ -306,7 +318,7 @@ b) If the random delay is even, consider this a successful delay and resolve the
 and if the random number is odd, consider this a failure and reject it
 c) Update the testing code to catch rejected promises and print a different message
 d) Try to update the then and catch messages to include the random delay value */
-/* function randomDelay() {
+ function randomDelay() {
   const delay = Math.floor(Math.random() * 20000) + 1000; // generate a random delay between 1 and 20 seconds
   return new Promise((resolve, reject) => {
     setTimeout(() => {
@@ -320,7 +332,7 @@ d) Try to update the then and catch messages to include the random delay value *
 }
 randomDelay()
   .then(() => console.log("Delay succeeded!"))
-  .catch(() => console.log("Delay failed!")); */
+  .catch(() => console.log("Delay failed!"));
 
 /*   10.Fetch is a browser-based function to send a request and receive a response from a server,
   which uses promises to handle the asynchronous response.
@@ -333,7 +345,8 @@ randomDelay()
 //run 'npm init' and accept all the defaults
 //run 'npm install node-fetch'
 //add this line to package.json after line 5: "type": "module",
-/* import fetch from "node-fetch";
+ import fetch from "node-fetch";
+
 globalThis.fetch = fetch;
 
 async function fetchURLData(url) {
@@ -351,4 +364,8 @@ async function fetchURLData(url) {
 }
 fetchURLData("https://jsonplaceholder.typicode.com/todos/1")
   .then((data) => console.log(data))
-  .catch((error) => console.error(error.message)); */
+  .catch((error) => console.error(error.message));
+
+  //OVERALL everythings alright, all correct and neat, just dont forget to put a stop on your loops, intervals etc.
+
+  // Love your work mate! Keep being curious!
